@@ -4,6 +4,7 @@ set -e
 # --- Start SSH daemon (background) ---
 # Set root password from env var, then launch sshd.
 echo "root:${SSH_ROOT_PASSWORD:-pow1fu}" | chpasswd
+mkdir -p /run/sshd
 /usr/sbin/sshd
 echo "[start.sh] sshd listening on port 22"
 
