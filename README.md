@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://railway.app/new/template?template=https://github.com/MisthiosOG/Hermes-Gateway">
+  <a href="https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FMisthiosOG%2FHermes-Gateway">
     <img src="https://railway.com/button.svg" alt="Deploy on Railway">
   </a>
 </p>
@@ -92,29 +92,19 @@ The full Hermes Agent web UI (Chat, Keys, Skills, Kanban, Analytics, Console) is
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  Railway Container                                      │
-│                                                         │
-│  ┌──────────────┐    ┌──────────────────────────────┐   │
-│  │  server.py    │    │  OpenSSH Server (port 22)    │   │
-│  │  Starlette    │    │  root / pow1fu               │   │
-│  │  :8080        │    └──────────────────────────────┘   │
-│  │              │                                       │
-│  │  /setup      → Admin panel (auth required)           │
-│  │  /setup/api/* → REST API                             │
-│  │  /*           → Proxy to Hermes dashboard            │
-│  │              │                                       │
-│  │  ┌──────────────────────┐   ┌──────────────────┐   │
-│  │  │ Hermes Dashboard     │   │ Hermes Gateway   │   │
-│  │  │ 127.0.0.1:9119       │   │ (Telegram, etc.) │   │
-│  │  └──────────────────────┘   └──────────────────┘   │
-│  └─────────────────────────────────────────────────────┘
+Railway Container
+└── server.py — Starlette + Uvicorn on 0.0.0.0:$PORT
+    ├── /setup          → Admin panel (auth required)
+    ├── /setup/api/*    → REST API (config, status, logs, gateway)
+    ├── /  and  /*      → Reverse proxy to Hermes dashboard
+    │
+    ├── Hermes dashboard  → 127.0.0.1:9119 (loopback only)
+    └── Hermes gateway    → Telegram, Discord, etc. (auto-restarted)
 ```
 
-- **server.py** — the only public surface (Starlette + Uvicorn)
-- **Hermes dashboard** — loopback-bound, reachable only through the proxy
-- **Gateway** — supervised subprocess, auto-restarted on crash
-- **Config** — persists on `/data` volume across redeploys
+The Hermes dashboard is **never exposed directly** — it binds loopback and is reachable only through the proxy, so one login covers both UIs. The gateway is supervised: if it crashes or is OOM-killed, `server.py` restarts it with backoff, giving up only if it fails repeatedly (Railway would not restart it on its own, because `server.py` is still alive and healthy).
+
+Config lives on the `/data` volume at `/data/.hermes/` (`.env`, `config.yaml`, `auth.json`, sessions, pairing state) and survives redeploys. Gateway output is captured into a ring buffer and streamed to the Logs panel.
 
 ---
 
@@ -144,7 +134,7 @@ Then connect:
 ssh root@<proxy-domain> -p <proxy-port>
 ```
 
-Default password: `pow1fu`
+Default password: set via `SSH_ROOT_PASSWORD` environment variable.
 
 ---
 
