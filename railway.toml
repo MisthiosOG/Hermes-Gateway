@@ -8,3 +8,7 @@ healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
+
+[[deploy.port]]
+port = 8080
+protocol = "http"
