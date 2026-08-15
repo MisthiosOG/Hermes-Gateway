@@ -57,7 +57,11 @@
   .version-badge-label { font-size: 8px; text-transform: uppercase; color: var(--text-faint); letter-spacing: .5px; }
   .version-badge-value { font-size: 10px; color: var(--green); }
   .version-badge-hint { font-size: 9px; color: var(--text-faint); }
-  #main { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  #main { flex: 1; overflow: hidden; display: flex; flex-direction: column; background-image: 
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px; }
   .panel { display: none; flex-direction: column; height: 100%; overflow: hidden; }
   .panel.active { display: flex; }
   .panel-header { padding: 14px 20px 10px; border-bottom: 2px solid var(--line); display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
