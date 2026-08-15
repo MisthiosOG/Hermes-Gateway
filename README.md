@@ -4,7 +4,7 @@ Deploy [Hermes Agent](https://github.com/NousResearch/hermes-agent) on [Railway]
 
 Repository: [MisthiosOG/Hermes-Gateway](https://github.com/MisthiosOG/Hermes-Gateway)
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/hermes-agent-ai?referralCode=QXdhdr&utm_medium=integration&utm_source=template&utm_campaign=generic)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FMisthiosOG%2FHermes-Gateway)
 
 > Hermes Agent is an autonomous AI agent by [Nous Research](https://nousresearch.com/) that lives on your server, connects to your messaging channels (Telegram, Discord, Slack, etc.), and gets more capable the longer it runs.
 
