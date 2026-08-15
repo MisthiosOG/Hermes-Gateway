@@ -92,36 +92,8 @@ The full Hermes Agent web UI (Chat, Keys, Skills, Kanban, Analytics, Console) is
 ## Architecture
 
 <p align="center">
-  <img src="assets/architecture.svg" alt="Architecture diagram" width="700">
+  <img src="assets/architecture.svg" alt="Architecture diagram" width="800">
 </p>
-
-### Route Map
-
-| Path | Target | Auth | Notes |
-|------|--------|------|-------|
-| `/setup` | Admin panel (HTML) | Required | Setup wizard for providers, channels, tools |
-| `/setup/api/*` | REST API | Required | Config, status, logs, gateway control, pairing |
-| `/` and `/*` | Reverse proxy → Hermes dashboard | Required | Chat, Keys, Skills, Kanban, Analytics, Console |
-| `/login` / `/logout` | Auth pages | Public | Cookie-based session (7-day, httponly) |
-| `/health` | Health check | Public | Used by Railway for container health monitoring |
-
-### Components
-
-| Component | Binding | Description |
-|-----------|---------|-------------|
-| `server.py` | `0.0.0.0:$PORT` | Starlette + Uvicorn — the only public surface |
-| Hermes dashboard | `127.0.0.1:9119` | Native Hermes web UI (loopback only, proxied) |
-| Hermes gateway | Managed subprocess | Agent process for Telegram, Discord, etc. (auto-restarted) |
-
-### Data Flow
-
-```
-Internet → Railway Proxy → server.py → /setup/* (admin panel)
-                                    → /* (proxy → Hermes dashboard @ :9119)
-                                    → gateway subprocess (Telegram, Discord, ...)
-```
-
-Config lives on the `/data` volume at `/data/.hermes/` (`.env`, `config.yaml`, `auth.json`, pairing state) and survives redeploys. The gateway is supervised: if it crashes or is OOM-killed, `server.py` restarts it with backoff, giving up only if it fails repeatedly.
 
 ---
 
