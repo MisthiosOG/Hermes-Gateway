@@ -12,14 +12,14 @@
 
   /* ── Hermes Panel — flat dark admin ── */
   :root {
-    --bg: #101318; --surface: #191e26; --surface-2: #202631; --line: #303947;
-    --text: #e7ebf1; --text-dim: #a4adba; --text-faint: #707b8b;
-    --accent: #9bb7d4; --accent2: #c0d1e3;
-    --green: #86b89a; --yellow: #c6ad79; --red: #cf8787;
-    --glass: #191e26; --glass-strong: #252d39;
-    --stroke: #303947; --stroke-strong: #465365;
-    --shadow: 0 4px 12px rgba(0,0,0,.16); --shadow-sm: 0 2px 7px rgba(0,0,0,.12);
-    --radius: 8px; --radius-sm: 6px; --radius-lg: 12px;
+    --bg: #080c12; --surface: #11161f; --surface-2: #1a2230; --line: #263040;
+    --text: #e4e9f2; --text-dim: #98a6ba; --text-faint: #637184;
+    --accent: #5686c2; --accent2: #89b0e0;
+    --green: #6aab84; --yellow: #c9a85c; --red: #cc7a7a;
+    --glass: #11161f; --glass-strong: #1e2738;
+    --stroke: #263040; --stroke-strong: #3a4860;
+    --shadow: 0 6px 16px rgba(0,0,0,.25); --shadow-sm: 0 3px 10px rgba(0,0,0,.20);
+    --radius: 10px; --radius-sm: 8px; --radius-lg: 14px;
     --blur: 0; --blur-sm: 0;
     --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --font-mono: 'SF Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -105,7 +105,8 @@
   input[type=checkbox]:checked { background: var(--accent); border-color: transparent; }
   input[type=checkbox]:checked::after { transform: translateX(18px); background: #fff; }
   input[type=checkbox]:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+  .card { background: var(--surface); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+  .card:hover { border-color: var(--stroke-strong); }
   .section-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-dim); margin: 24px 0 14px; padding: 0 0 10px 12px; border-bottom: 1px solid var(--line); border-left: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; }
   .section-label:first-of-type { margin-top: 0; }
   .section-label .req-note { color: var(--accent2); font-size: 10px; letter-spacing: 0; text-transform: none; }
@@ -271,7 +272,7 @@
 
     <div class="nav-group-label">Setup</div>
     <div class="nav-item" :class="{active: page==='setup'}" @click="page='setup'">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
       <span>Setup</span>
     </div>
 
@@ -279,7 +280,7 @@
     <div class="nav-item highlight"
          @click="window.location.href='/?force=1'"
          title="Open the native Hermes dashboard — providers, skills, analytics, sessions">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg></span>
       <span>Hermes Dashboard</span>
       <span class="nav-arrow">→</span>
     </div>
@@ -288,13 +289,13 @@
     <div class="nav-item"
          :class="{active: page==='status', locked: !isSetupDone}"
          @click="isSetupDone && (page='status')">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></span>
       <span>Status</span>
     </div>
     <div class="nav-item"
          :class="{active: page==='logs', locked: !isSetupDone}"
          @click="isSetupDone && (page='logs')">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
       <span>Logs</span>
     </div>
 
@@ -302,14 +303,14 @@
     <div class="nav-item"
          :class="{active: page==='users', locked: !isSetupDone}"
          @click="isSetupDone && (page='users')">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 21c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 11a3.5 3.5 0 0 1 0-6"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 21c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 11a3.5 3.5 0 0 1 0-6"/></svg></span>
       <span>Users</span>
       <span class="nav-badge" :class="{visible: pendingCount>0}" x-text="pendingCount"></span>
     </div>
 
     <div class="nav-group-label" style="margin-top:8px">Resources</div>
     <div class="nav-item" :class="{active: page==='guide'}" @click="page='guide'">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/></svg></span>
       <span>How to Setup</span>
     </div>
     <div class="nav-item" :class="{active: page==='changelog'}" @click="page='changelog'">
@@ -319,7 +320,7 @@
 
     <div class="nav-group-label" style="margin-top:8px">Data</div>
     <div class="nav-item" :class="{active: page==='backup'}" @click="page='backup'">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
       <span>Backup &amp; Restore</span>
     </div>
 
@@ -341,12 +342,12 @@
     <div class="nav-divider"></div>
 
     <div class="nav-item danger" @click="resetConfig()">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></span>
       <span>Reset Config</span>
     </div>
 
     <div class="nav-item" @click="window.location.href='/logout'">
-      <span class="nav-icon"><span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg></span></span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg></span>
       <span>Sign out</span>
     </div>
 
@@ -580,7 +581,7 @@
           <!-- Telegram -->
           <div class="toggle-row" @click="channelsEnabled.telegram=!channelsEnabled.telegram; if(!channelsEnabled.telegram) clearChannel('telegram')">
             <input type="checkbox" :checked="channelsEnabled.telegram" @click.stop @change="channelsEnabled.telegram=$event.target.checked; if(!channelsEnabled.telegram) clearChannel('telegram')">
-            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 16-8-6 16-3-6-7-2z"/></svg></span></span>
+            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 16-8-6 16-3-6-7-2z"/></svg></span>
             <span class="toggle-label">Telegram</span>
           </div>
           <div class="toggle-body" x-show="channelsEnabled.telegram">
@@ -593,7 +594,7 @@
           <!-- Discord -->
           <div class="toggle-row" @click="channelsEnabled.discord=!channelsEnabled.discord; if(!channelsEnabled.discord) clearChannel('discord')">
             <input type="checkbox" :checked="channelsEnabled.discord" @click.stop @change="channelsEnabled.discord=$event.target.checked; if(!channelsEnabled.discord) clearChannel('discord')">
-            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l14 0-1 13-7 2-7-2z"/><path d="M9 10h.01M15 10h.01"/></svg></span></span>
+            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l14 0-1 13-7 2-7-2z"/><path d="M9 10h.01M15 10h.01"/></svg></span>
             <span class="toggle-label">Discord</span>
           </div>
           <div class="toggle-body" x-show="channelsEnabled.discord">
@@ -606,7 +607,7 @@
           <!-- Slack -->
           <div class="toggle-row" @click="channelsEnabled.slack=!channelsEnabled.slack; if(!channelsEnabled.slack) clearChannel('slack')">
             <input type="checkbox" :checked="channelsEnabled.slack" @click.stop @change="channelsEnabled.slack=$event.target.checked; if(!channelsEnabled.slack) clearChannel('slack')">
-            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="3"/><path d="M7 8V6a2 2 0 0 1 4 0v2m6-2V6a2 2 0 0 0-4 0v2"/></svg></span></span>
+            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="3"/><path d="M7 8V6a2 2 0 0 1 4 0v2m6-2V6a2 2 0 0 0-4 0v2"/></svg></span>
             <span class="toggle-label">Slack</span>
           </div>
           <div class="toggle-body" x-show="channelsEnabled.slack">
@@ -619,7 +620,7 @@
           <!-- Email -->
           <div class="toggle-row" @click="channelsEnabled.email=!channelsEnabled.email; if(!channelsEnabled.email) clearChannel('email')">
             <input type="checkbox" :checked="channelsEnabled.email" @click.stop @change="channelsEnabled.email=$event.target.checked; if(!channelsEnabled.email) clearChannel('email')">
-            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span></span>
+            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
             <span class="toggle-label">Email</span>
           </div>
           <div class="toggle-body" x-show="channelsEnabled.email">
@@ -634,7 +635,7 @@
           <!-- Mattermost -->
           <div class="toggle-row" @click="channelsEnabled.mattermost=!channelsEnabled.mattermost; if(!channelsEnabled.mattermost) clearChannel('mattermost')">
             <input type="checkbox" :checked="channelsEnabled.mattermost" @click.stop @change="channelsEnabled.mattermost=$event.target.checked; if(!channelsEnabled.mattermost) clearChannel('mattermost')">
-            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M4 12a8 8 0 0 1 16 0"/></svg></span></span>
+            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M4 12a8 8 0 0 1 16 0"/></svg></span>
             <span class="toggle-label">Mattermost</span>
           </div>
           <div class="toggle-body" x-show="channelsEnabled.mattermost">
@@ -647,7 +648,7 @@
           <!-- Matrix -->
           <div class="toggle-row" @click="channelsEnabled.matrix=!channelsEnabled.matrix; if(!channelsEnabled.matrix) clearChannel('matrix')">
             <input type="checkbox" :checked="channelsEnabled.matrix" @click.stop @change="channelsEnabled.matrix=$event.target.checked; if(!channelsEnabled.matrix) clearChannel('matrix')">
-            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h2v8H8zM14 8h2v8h-2z"/></svg></span></span>
+            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h2v8H8zM14 8h2v8h-2z"/></svg></span>
             <span class="toggle-label">Matrix</span>
           </div>
           <div class="toggle-body" x-show="channelsEnabled.matrix">
@@ -661,7 +662,7 @@
           <!-- WhatsApp -->
           <div class="toggle-row" style="border-bottom:none;" @click="channelsEnabled.whatsapp=!channelsEnabled.whatsapp; vars.WHATSAPP_ENABLED=channelsEnabled.whatsapp?'true':'false'">
             <input type="checkbox" :checked="channelsEnabled.whatsapp" @click.stop @change="channelsEnabled.whatsapp=$event.target.checked; vars.WHATSAPP_ENABLED=$event.target.checked?'true':'false'">
-            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l2-5.2A8.5 8.5 0 1 1 21 11.5z"/></svg></span></span>
+            <span class="toggle-icon"><span class="toggle-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l2-5.2A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
             <span class="toggle-label">WhatsApp</span>
             <span style="font-size:11px;color:var(--text-dim);margin-left:8px;">pairing via gateway logs on first run</span>
           </div>
@@ -911,7 +912,7 @@
                    class="dropzone-input">
             <div class="dropzone-icon">⬆</div>
             <div class="dropzone-main">
-              <span x-show="!restoreFile">Drop a backup .zip here, or <span class="dropzone-link">browse</span></span>
+              <span x-show="!restoreFile">Drop a backup .zip here, or <span class="dropzone-link">browse</span>
               <span x-show="restoreFile" class="dropzone-file" x-text="restoreFile ? restoreFile.name : ''"></span>
             </div>
             <div class="dropzone-sub" x-show="!restoreFile">Only .zip files created by Download Backup</div>
