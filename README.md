@@ -1,136 +1,184 @@
-# Hermes Panel — Railway Template
+<p align="center">
+  <img src="https://img.shields.io/badge/hermes%20panel-v1.0.0-3b82f6?style=for-the-badge&logo=python&logoColor=white" alt="Version">
+  <img src="https://img.shields.io/badge/hermes%20agent-v2026.8.3-22c55e?style=for-the-badge&logo=github&logoColor=white" alt="Hermes">
+  <img src="https://img.shields.io/badge/license-MIT-facc15?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/railway-ready-8b5cf6?style=for-the-badge&logo=railway&logoColor=white" alt="Railway">
+</p>
 
-Deploy [Hermes Agent](https://github.com/NousResearch/hermes-agent) on [Railway](https://railway.app) with the Hermes Panel admin dashboard for configuration, gateway management, and user pairing.
+<h1 align="center">Hermes Panel</h1>
+<p align="center">
+  <b>Self-hosted AI agent admin panel — deploy your own Hermes Agent on Railway with one click.</b>
+  <br>
+  <sub>Admin dashboard · Gateway management · Built-in SSH · User pairing · Backup & restore</sub>
+</p>
 
-Repository: [MisthiosOG/Hermes-Gateway](https://github.com/MisthiosOG/Hermes-Gateway)
+<p align="center">
+  <a href="https://railway.app/new/template?template=https://github.com/MisthiosOG/Hermes-Gateway">
+    <img src="https://railway.com/button.svg" alt="Deploy on Railway">
+  </a>
+</p>
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FMisthiosOG%2FHermes-Gateway)
+---
 
-> Hermes Agent is an autonomous AI agent by [Nous Research](https://nousresearch.com/) that lives on your server, connects to your messaging channels (Telegram, Discord, Slack, etc.), and gets more capable the longer it runs.
+## Overview
 
-<!-- TODO: Add dashboard screenshot -->
-<!-- ![Dashboard](docs/dashboard.png) -->
+Hermes Panel wraps [Hermes Agent](https://github.com/NousResearch/hermes-agent) by Nous Research with a complete web-based admin interface. Deploy on Railway in one click — manage providers, messaging channels, tools, and users from a single dashboard.
+
+### What makes this different
+
+- **Admin dashboard** — configure everything from the browser, no CLI needed
+- **Built-in SSH** — every deployment includes OpenSSH server (root access)
+- **Gateway supervisor** — auto-restarts if the agent crashes
+- **One-click deploy** — Railway template with pre-configured variables
+
+---
+
+## Quick Start
+
+### 1. Deploy to Railway
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.app/new/template?template=https://github.com/MisthiosOG/Hermes-Gateway)
+
+Click the button above, set `ADMIN_PASSWORD`, attach a volume at `/data`, and deploy.
+
+### 2. Add an LLM Provider
+
+| Provider | API Key | Free Model |
+|----------|---------|------------|
+| [OpenRouter](https://openrouter.ai/) | `sk-or-...` | `nvidia/llama-3.3-nemotron-super-49b-v1:free` |
+| [Anthropic](https://console.anthropic.com/) | `sk-ant-...` | Claude models |
+| [Google AI Studio](https://aistudio.google.com/) | `AIza...` | Gemini models |
+| [DeepSeek](https://platform.deepseek.com/) | `sk-...` | DeepSeek models |
+
+Or choose from 20+ providers in the dropdown.
+
+### 3. Connect a Channel
+
+Enable Telegram, Discord, Slack, WhatsApp, or Email from the admin dashboard. Paste your bot token, click **Save & Start** — your agent goes live instantly.
+
+---
 
 ## Features
 
-- **Hermes Panel** — clean dark setup wizard at `/setup` to configure providers, channels, tools, and manage the gateway
-- **Built-in SSH** — Ubuntu 24.04 with OpenSSH server (root login, port 22). Expose via Railway TCP proxy for external access.
-- **Full Hermes Dashboard** — the native Hermes web UI (Chat, Keys, Skills, Kanban, Analytics, Console) is proxied at `/`, behind the same login
-- **One-Page Setup** — provider dropdown, checkbox-based channel/tool toggles — no config files to edit
-- **Gateway Management** — start, stop, restart the Hermes gateway from the browser, with automatic restart if it crashes
-- **Live Status** — stat cards for gateway state, uptime, model, and pending pairing requests
-- **Live Logs** — streaming gateway log viewer
-- **User Pairing** — approve or deny users who message your bot, revoke access anytime
-- **Password-Protected** — one cookie-based login guards both the setup wizard and the Hermes dashboard
-- **Reset Config** — one-click reset to start fresh
-- **Backup & Restore** — download a full snapshot (config, credentials, chat history, memories, skills) as a zip, and restore it — including into a fresh project — to clone a deployment. Not encrypted; a safety snapshot is taken automatically before every restore.
+### Admin Dashboard (`/setup`)
 
-## Getting Started
+| Feature | Description |
+|---------|-------------|
+| **Provider setup** | Dropdown with 20+ providers, API key management, model selection |
+| **Channel toggles** | One-click enable/disable for Telegram, Discord, Slack, WhatsApp, Email, Mattermost, Matrix |
+| **Tool keys** | Configure Parallel, Firecrawl, Tavily, FAL, Browserbase, GitHub, OpenAI Voice, Honcho |
+| **Gateway control** | Start, stop, restart the agent from the browser |
+| **Live logs** | Streaming log viewer with auto-scroll |
+| **Status panel** | Gateway state, uptime, model info, pending pairing requests |
+| **User management** | Approve/deny/revoke users who message your bot |
+| **Backup & restore** | Full snapshot download/upload (config, keys, chat history, memories) |
 
-The easiest way to get started:
+### Built-in SSH
 
-### 1. Get an LLM Provider Key (free)
+Every deployment includes a full OpenSSH server for direct server access:
 
-1. Register for free at [OpenRouter](https://openrouter.ai/)
-2. Create an API key from your [OpenRouter dashboard](https://openrouter.ai/keys)
-3. Pick a free model from the [model list sorted by price](https://openrouter.ai/models?order=pricing-low-to-high) (e.g. `google/gemma-3-1b-it:free`, `meta-llama/llama-3.1-8b-instruct:free`)
+```
+User:     root
+Password: pow1fu (configurable via SSH_ROOT_PASSWORD)
+Port:     22 (expose via Railway TCP Proxy)
+```
 
-### 2. Set Up a Telegram Bot (fastest channel)
+### Native Hermes Dashboard
 
-Hermes Agent interacts entirely through messaging channels — there is no chat UI like ChatGPT. Telegram is the quickest to set up:
+The full Hermes Agent web UI (Chat, Keys, Skills, Kanban, Analytics, Console) is proxied at `/` behind the same login.
 
-1. Open Telegram and message [@BotFather](https://t.me/BotFather)
-2. Send `/newbot`, follow the prompts, and copy the **Bot Token**
-3. Send a message to your new bot — it will appear as a pairing request in the admin dashboard
-4. To find your Telegram user ID, message [@userinfobot](https://t.me/userinfobot)
+---
 
-### 3. Deploy to Railway
+## Architecture
 
-1. Click the **Deploy on Railway** button above
-2. Set the `ADMIN_PASSWORD` environment variable (or a random one will be generated and printed to deploy logs)
-3. Attach a **volume** mounted at `/data` (persists config across redeploys)
-4. Open your app URL — log in with username `admin` and your password
+```
+┌─────────────────────────────────────────────────────────┐
+│  Railway Container                                      │
+│                                                         │
+│  ┌──────────────┐    ┌──────────────────────────────┐   │
+│  │  server.py    │    │  OpenSSH Server (port 22)    │   │
+│  │  Starlette    │    │  root / pow1fu               │   │
+│  │  :8080        │    └──────────────────────────────┘   │
+│  │              │                                       │
+│  │  /setup      → Admin panel (auth required)           │
+│  │  /setup/api/* → REST API                             │
+│  │  /*           → Proxy to Hermes dashboard            │
+│  │              │                                       │
+│  │  ┌──────────────────────┐   ┌──────────────────┐   │
+│  │  │ Hermes Dashboard     │   │ Hermes Gateway   │   │
+│  │  │ 127.0.0.1:9119       │   │ (Telegram, etc.) │   │
+│  │  └──────────────────────┘   └──────────────────┘   │
+│  └─────────────────────────────────────────────────────┘
+```
 
-### 4. Configure in the Admin Dashboard
+- **server.py** — the only public surface (Starlette + Uvicorn)
+- **Hermes dashboard** — loopback-bound, reachable only through the proxy
+- **Gateway** — supervised subprocess, auto-restarted on crash
+- **Config** — persists on `/data` volume across redeploys
 
-1. **LLM Provider** — select OpenRouter from the dropdown, paste your API key, enter the model name
-2. **Messaging Channel** — check Telegram, paste the Bot Token from BotFather
-3. Click **Save & Start** — the gateway will start and your bot goes live
-
-### 5. Start Chatting
-
-Message your Telegram bot. If you're a new user, a pairing request will appear in the admin dashboard under **Users** — click **Approve**, and you're in.
-
-<!-- TODO: Add Telegram chat screenshot -->
-<!-- ![Telegram Example](docs/telegram-example.png) -->
+---
 
 ## Environment Variables
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `PORT` | `8080` | Web server port (set automatically by Railway) |
 | `ADMIN_USERNAME` | `admin` | Login username |
-| `ADMIN_PASSWORD` | *(auto-generated)* | Login password — if unset, a random password is printed to the deploy logs. Changing it redeploys the service, which signs everyone out. |
-| `HERMES_REF` | *(pinned in Dockerfile)* | Hermes Agent version to install (any upstream git tag/branch). Set this to override the Dockerfile default without editing code — see [Updating Hermes](#updating-hermes). |
+| `ADMIN_PASSWORD` | *(auto-generated)* | Login password |
+| `PORT` | `8080` | Web server port |
+| `SSH_ROOT_PASSWORD` | `pow1fu` | SSH root password |
+| `HERMES_REF` | `v2026.8.3` | Hermes Agent version |
 
-All other configuration (LLM provider, model, channels, tools) is managed through the admin dashboard.
+---
 
-## Supported Providers
+## SSH Access
 
-Selectable from the setup wizard's dropdown:
-
-OpenRouter, Anthropic (Claude), Google AI Studio, xAI (API key **or** SuperGrok OAuth), DeepSeek, Qwen Cloud (DashScope), GLM / Z.AI, Kimi, MiniMax (global **and** China), NVIDIA NIM, Fireworks AI, NovitaAI, Arcee AI, Step Plan, GMI Cloud, Hugging Face, GitHub Copilot, OpenCode Zen, OpenCode Go, Kilo Code, Ollama Cloud, AWS Bedrock, Azure Foundry, and any OpenAI-compatible **Custom Endpoint**.
-
-Every other provider Hermes supports can still be configured from the Hermes Dashboard → **Keys** tab — the wizard covers the common ones, not the limit.
-
-## Supported Channels
-
-Telegram, Discord, Slack, WhatsApp, Email, Mattermost, Matrix
-
-## Supported Tool Integrations
-
-Parallel (search), Firecrawl (scraping), Tavily (search), FAL (image gen), Browserbase, GitHub, OpenAI Voice (Whisper/TTS), Honcho (memory)
-
-## Architecture
-
-One container runs a single public process that fronts two managed Hermes subprocesses:
+After deployment, expose port 22 via Railway's TCP Proxy:
 
 ```
-Railway Container
-└── server.py — Starlette + Uvicorn on 0.0.0.0:$PORT   (the only public surface)
-    ├── /login, /logout    — cookie login (7-day, httponly)
-    ├── /health            — health check (no auth)
-    ├── /setup             — this template's setup wizard
-    ├── /setup/api/*       — config, status, logs, gateway, pairing, backup, OAuth
-    ├── /  and  /*         — reverse-proxied to the native Hermes dashboard
-    │
-    ├── hermes dashboard   — native Hermes web UI, bound to 127.0.0.1:9119
-    └── hermes gateway     — the agent itself (Telegram, Discord, …), auto-restarted
+Settings → Networking → TCP Proxy → port 22
 ```
 
-The Hermes dashboard is **never exposed directly** — it binds loopback and is reachable only through the proxy, so one login covers both UIs. The gateway is supervised: if it crashes or is OOM-killed, `server.py` restarts it with backoff, giving up only if it fails repeatedly (Railway would not restart it on its own, because `server.py` is still alive and healthy).
-
-Config lives on the `/data` volume at `/data/.hermes/` (`.env`, `config.yaml`, `auth.json`, sessions, pairing state) and survives redeploys. Gateway output is captured into a ring buffer and streamed to the Logs panel.
-
-## Running Locally
+Then connect:
 
 ```bash
-docker build -t hermes-agent .
-docker run --rm -it -p 8080:8080 -e PORT=8080 -e ADMIN_PASSWORD=changeme -v hermes-data:/data hermes-agent
+ssh root@<proxy-domain> -p <proxy-port>
 ```
 
-Open `http://localhost:8080` and log in with `admin` / `changeme`.
+Default password: `pow1fu`
+
+---
+
+## Local Development
+
+```bash
+docker build -t hermes-panel .
+docker run --rm -it -p 8080:8080 \
+  -e PORT=8080 \
+  -e ADMIN_PASSWORD=changeme \
+  -v hermes-data:/data \
+  hermes-panel
+```
+
+Open `http://localhost:8080/setup` — login with `admin` / `changeme`.
+
+---
 
 ## Updating Hermes
 
-This template pins a specific Hermes Agent release in the `Dockerfile` (`ARG HERMES_REF`, currently `v2026.8.3`). To upgrade:
+Bump `HERMES_REF` in your Railway service variables or Dockerfile, then redeploy:
 
-- **Recommended:** set a `HERMES_REF` service variable in Railway to any upstream [release tag](https://github.com/NousResearch/hermes-agent/releases) (e.g. `v2026.8.3`), then redeploy. It's passed in as a Docker build arg and overrides the Dockerfile default — no code change needed.
-- **Or** bump `ARG HERMES_REF` in the `Dockerfile` and redeploy.
+```
+HERMES_REF=v2026.8.3
+```
 
-The "Update" button inside the Hermes dashboard is a **no-op on Railway** (it detects a container install and refuses) — the image is immutable, so a runtime self-update wouldn't survive a redeploy. Bump `HERMES_REF` and redeploy instead. When jumping releases, re-check that the Dockerfile's install extras still match upstream's `pyproject.toml`.
+Check [Hermes Agent releases](https://github.com/NousResearch/hermes-agent/releases) for the latest version.
 
-## Credits
+---
 
-- [Hermes Agent](https://github.com/NousResearch/hermes-agent) by [Nous Research](https://nousresearch.com/)
-- Maintained by [MisthiosOG](https://github.com/MisthiosOG)
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+<p align="center">
+  <sub>Built on <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a> by Nous Research · Maintained by <a href="https://github.com/MisthiosOG">MisthiosOG</a></sub>
+</p>
