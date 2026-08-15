@@ -123,7 +123,7 @@ ENV HERMES_HOME=/data/.hermes
 ENV HERMES_TUI_DIR=/opt/hermes-agent/ui-tui
 
 # SSH root password (change this in Railway service variables)
-ENV SSH_ROOT_PASSWORD=pow1fu
+ENV SSH_ROOT_PASSWORD=changeme
 
 # tini wraps start.sh so it runs as PID 1's child instead of as PID 1 itself.
 # `-g` propagates signals to the whole process group so `docker stop` /

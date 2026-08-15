@@ -2,7 +2,7 @@
 set -e
 
 # --- Start SSH daemon ---
-echo "root:${SSH_ROOT_PASSWORD:-pow1fu}" | chpasswd
+echo "root:${SSH_ROOT_PASSWORD:-changeme}" | chpasswd
 mkdir -p /run/sshd
 /usr/sbin/sshd
 echo "[start.sh] sshd listening on port 22"

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="'SF Pro Text', -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="boxEntry" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="boxRoute" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="boxInternal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="boxInternal2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/>
+    </filter>
+    <filter id="shadowDeep">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowDown" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L5,10 L10,0" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="520" rx="16" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">Architecture</text>
+
+  <!-- ===== server.py (Entry Point) ===== -->
+  <rect x="300" y="60" width="200" height="50" rx="10" fill="url(#boxEntry)" filter="url(#shadowDeep)"/>
+  <text x="400" y="83" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">server.py</text>
+  <text x="400" y="99" text-anchor="middle" font-size="9" fill="#bfdbfe">Starlette + Uvicorn — :$PORT</text>
+
+  <!-- Badge: public -->
+  <rect x="510" y="68" width="46" height="18" rx="9" fill="#dbeafe"/>
+  <text x="533" y="81" text-anchor="middle" font-size="8" font-weight="600" fill="#2563eb">public</text>
+
+  <!-- Divider line -->
+  <line x1="200" y1="135" x2="600" y2="135" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- ===== Routes label ===== -->
+  <text x="400" y="152" text-anchor="middle" font-size="10" font-weight="600" fill="#64748b">ROUTES</text>
+
+  <!-- Arrow from server.py down -->
+  <line x1="400" y1="110" x2="400" y2="168" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- ===== Route 1: /setup ===== -->
+  <rect x="60" y="175" width="200" height="48" rx="8" fill="url(#boxRoute)" filter="url(#shadow)"/>
+  <text x="160" y="195" text-anchor="middle" font-size="12" font-weight="600" fill="#f1f5f9">/setup</text>
+  <text x="160" y="211" text-anchor="middle" font-size="9" fill="#94a3b8">Admin panel (auth required)</text>
+
+  <!-- Badge: auth required -->
+  <rect x="190" y="180" width="62" height="16" rx="8" fill="#fef2f2"/>
+  <text x="221" y="192" text-anchor="middle" font-size="7" font-weight="600" fill="#ef4444">auth</text>
+
+  <!-- Arrow -->
+  <line x1="400" y1="170" x2="260" y2="199" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ===== Route 2: /setup/api/* ===== -->
+  <rect x="300" y="175" width="200" height="48" rx="8" fill="url(#boxRoute)" filter="url(#shadow)"/>
+  <text x="400" y="195" text-anchor="middle" font-size="12" font-weight="600" fill="#f1f5f9">/setup/api/*</text>
+  <text x="400" y="211" text-anchor="middle" font-size="9" fill="#94a3b8">REST API (auth required)</text>
+
+  <!-- Badge: auth required -->
+  <rect x="428" y="180" width="62" height="16" rx="8" fill="#fef2f2"/>
+  <text x="459" y="192" text-anchor="middle" font-size="7" font-weight="600" fill="#ef4444">auth</text>
+
+  <!-- Arrow -->
+  <line x1="400" y1="170" x2="400" y2="175" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- ===== Route 3: / and /* ===== -->
+  <rect x="540" y="175" width="200" height="48" rx="8" fill="url(#boxRoute)" filter="url(#shadow)"/>
+  <text x="640" y="195" text-anchor="middle" font-size="12" font-weight="600" fill="#f1f5f9">/  and  /*</text>
+  <text x="640" y="211" text-anchor="middle" font-size="9" fill="#94a3b8">Proxy to Hermes dashboard</text>
+
+  <!-- Badge: auth required -->
+  <rect x="668" y="180" width="62" height="16" rx="8" fill="#fef2f2"/>
+  <text x="699" y="192" text-anchor="middle" font-size="7" font-weight="600" fill="#ef4444">auth</text>
+
+  <!-- Arrow -->
+  <line x1="400" y1="170" x2="540" y2="199" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Divider line -->
+  <line x1="200" y1="250" x2="600" y2="250" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- ===== Internal services label ===== -->
+  <text x="400" y="267" text-anchor="middle" font-size="10" font-weight="600" fill="#64748b">INTERNAL SERVICES (loopback)</text>
+
+  <!-- Arrow from /* to internal services -->
+  <line x1="640" y1="223" x2="640" y2="285" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- ===== Hermes Dashboard ===== -->
+  <rect x="540" y="290" width="200" height="55" rx="8" fill="url(#boxInternal)" filter="url(#shadow)"/>
+  <text x="640" y="312" text-anchor="middle" font-size="12" font-weight="600" fill="#e0e7ff">Hermes Dashboard</text>
+  <text x="640" y="328" text-anchor="middle" font-size="9" fill="#c7d2fe">127.0.0.1:9119</text>
+
+  <!-- Badge: loopback -->
+  <rect x="666" y="296" width="64" height="16" rx="8" fill="#e0e7ff"/>
+  <text x="698" y="308" text-anchor="middle" font-size="7" font-weight="600" fill="#4338ca">loopback</text>
+
+  <!-- ===== Hermes Gateway ===== -->
+  <rect x="540" y="365" width="200" height="55" rx="8" fill="url(#boxInternal2)" filter="url(#shadow)"/>
+  <text x="640" y="387" text-anchor="middle" font-size="12" font-weight="600" fill="#ede9fe">Hermes Gateway</text>
+  <text x="640" y="403" text-anchor="middle" font-size="9" fill="#ddd6fe">Telegram, Discord, etc.</text>
+
+  <!-- Badge: auto-restarted -->
+  <rect x="658" y="371" width="72" height="16" rx="8" fill="#ede9fe"/>
+  <text x="694" y="383" text-anchor="middle" font-size="7" font-weight="600" fill="#6d28d9">auto-restart</text>
+
+  <!-- Arrow between internal services -->
+  <line x1="640" y1="345" x2="640" y2="365" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- ===== Legend ===== -->
+  <rect x="260" y="450" width="280" height="50" rx="8" fill="#fff" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+  <text x="400" y="468" text-anchor="middle" font-size="9" font-weight="600" fill="#64748b">Legend</text>
+  <rect x="278" y="477" width="12" height="8" rx="3" fill="#3b82f6"/>
+  <text x="296" y="485" font-size="8" fill="#64748b">Entry point</text>
+  <rect x="358" y="477" width="12" height="8" rx="3" fill="#1e293b"/>
+  <text x="376" y="485" font-size="8" fill="#64748b">Route</text>
+  <rect x="420" y="477" width="12" height="8" rx="3" fill="#6366f1"/>
+  <text x="438" y="485" font-size="8" fill="#64748b">Internal</text>
+  <rect x="488" y="477" width="12" height="8" rx="3" fill="#8b5cf6"/>
+  <text x="506" y="485" font-size="8" fill="#64748b">Service</text>
+</svg>

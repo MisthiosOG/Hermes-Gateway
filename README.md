@@ -91,20 +91,37 @@ The full Hermes Agent web UI (Chat, Keys, Skills, Kanban, Analytics, Console) is
 
 ## Architecture
 
+<p align="center">
+  <img src="assets/architecture.svg" alt="Architecture diagram" width="700">
+</p>
+
+### Route Map
+
+| Path | Target | Auth | Notes |
+|------|--------|------|-------|
+| `/setup` | Admin panel (HTML) | Required | Setup wizard for providers, channels, tools |
+| `/setup/api/*` | REST API | Required | Config, status, logs, gateway control, pairing |
+| `/` and `/*` | Reverse proxy → Hermes dashboard | Required | Chat, Keys, Skills, Kanban, Analytics, Console |
+| `/login` / `/logout` | Auth pages | Public | Cookie-based session (7-day, httponly) |
+| `/health` | Health check | Public | Used by Railway for container health monitoring |
+
+### Components
+
+| Component | Binding | Description |
+|-----------|---------|-------------|
+| `server.py` | `0.0.0.0:$PORT` | Starlette + Uvicorn — the only public surface |
+| Hermes dashboard | `127.0.0.1:9119` | Native Hermes web UI (loopback only, proxied) |
+| Hermes gateway | Managed subprocess | Agent process for Telegram, Discord, etc. (auto-restarted) |
+
+### Data Flow
+
 ```
-Railway Container
-└── server.py — Starlette + Uvicorn on 0.0.0.0:$PORT
-    ├── /setup          → Admin panel (auth required)
-    ├── /setup/api/*    → REST API (config, status, logs, gateway)
-    ├── /  and  /*      → Reverse proxy to Hermes dashboard
-    │
-    ├── Hermes dashboard  → 127.0.0.1:9119 (loopback only)
-    └── Hermes gateway    → Telegram, Discord, etc. (auto-restarted)
+Internet → Railway Proxy → server.py → /setup/* (admin panel)
+                                    → /* (proxy → Hermes dashboard @ :9119)
+                                    → gateway subprocess (Telegram, Discord, ...)
 ```
 
-The Hermes dashboard is **never exposed directly** — it binds loopback and is reachable only through the proxy, so one login covers both UIs. The gateway is supervised: if it crashes or is OOM-killed, `server.py` restarts it with backoff, giving up only if it fails repeatedly (Railway would not restart it on its own, because `server.py` is still alive and healthy).
-
-Config lives on the `/data` volume at `/data/.hermes/` (`.env`, `config.yaml`, `auth.json`, sessions, pairing state) and survives redeploys. Gateway output is captured into a ring buffer and streamed to the Logs panel.
+Config lives on the `/data` volume at `/data/.hermes/` (`.env`, `config.yaml`, `auth.json`, pairing state) and survives redeploys. The gateway is supervised: if it crashes or is OOM-killed, `server.py` restarts it with backoff, giving up only if it fails repeatedly.
 
 ---
 
