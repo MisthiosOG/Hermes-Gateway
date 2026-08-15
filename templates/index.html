@@ -103,11 +103,11 @@
   .section-label .req-note { color: var(--text-faint); font-size: 9px; letter-spacing: 0; text-transform: none; }
   .card-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .3px; }
   .field-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .toggle-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 2px solid var(--line); cursor: pointer; user-select: none; }
+  .toggle-row { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 2px solid var(--line); cursor: pointer; user-select: none; }
   .toggle-row:last-child { border-bottom: none; }
-  .toggle-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; }
-  .toggle-icon { font-size: 14px; width: 20px; text-align: center; }
-  .toggle-body { padding: 12px 0 6px 24px; border-bottom: 2px solid var(--line); }
+  .toggle-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; white-space: nowrap; flex-shrink: 0; }
+  .toggle-icon { font-size: 13px; width: 18px; text-align: center; flex-shrink: 0; }
+  .toggle-body { padding: 10px 0 6px 22px; border-bottom: 2px solid var(--line); }
   .toggle-body:last-child { border-bottom: none; }
   .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; margin-bottom: 20px; }
   .stat-card { background: var(--surface); border: 2px solid var(--line); padding: 14px; }
@@ -233,9 +233,7 @@
   <div id="status-label" x-text="gw.state||'stopped'"></div>
   <div class="header-spacer"></div>
   <div class="header-branding">
-    <span>made by</span>
-    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/heimdall-light.svg" alt="Hermes Panel">
-    <a href="https://github.com/MisthiosOG" target="_blank" rel="noopener">Hermes Panel</a>
+    <span>Hermes Panel</span>
   </div>
   <div class="header-spacer"></div>
   <a class="header-issue-link" href="https://github.com/MisthiosOG/Hermes-Gateway/issues" target="_blank" rel="noopener">⚠ Report issue</a>
