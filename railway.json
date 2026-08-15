@@ -26,9 +26,13 @@
       "defaultValue": "8080",
       "required": false
     },
+    "SSH_PUBLIC_KEY": {
+      "description": "SSH public key for root access (disables password auth)",
+      "required": false
+    },
     "SSH_ROOT_PASSWORD": {
-      "description": "SSH root password (for VPS access via TCP proxy)",
-      "defaultValue": "pow1fu",
+      "description": "SSH root password (only used when SSH_PUBLIC_KEY is not set)",
+      "defaultValue": "changeme",
       "required": false
     }
   }

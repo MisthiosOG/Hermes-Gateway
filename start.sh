@@ -2,7 +2,23 @@
 set -e
 
 # --- Start SSH daemon ---
+# Set root password from env var (used only when no SSH key is provided)
 echo "root:${SSH_ROOT_PASSWORD:-changeme}" | chpasswd
+
+# Install SSH public key if provided via SSH_PUBLIC_KEY env var
+if [ -n "${SSH_PUBLIC_KEY:-}" ]; then
+  mkdir -p /root/.ssh
+  echo "${SSH_PUBLIC_KEY}" >> /root/.ssh/authorized_keys
+  chmod 700 /root/.ssh
+  chmod 600 /root/.ssh/authorized_keys
+  # Disable password auth when key is configured
+  sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+  sed -i 's/^#\?PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+  echo "[start.sh] SSH public key installed, password auth disabled"
+else
+  echo "[start.sh] No SSH_PUBLIC_KEY set, using password auth"
+fi
+
 mkdir -p /run/sshd
 /usr/sbin/sshd
 echo "[start.sh] sshd listening on port 22"

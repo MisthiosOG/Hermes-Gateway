@@ -117,13 +117,23 @@ After deployment, expose port 22 via Railway's TCP Proxy:
 Settings → Networking → TCP Proxy → port 22
 ```
 
+### Authenticate via SSH key (recommended)
+
+Set `SSH_PUBLIC_KEY` in your Railway variables:
+
+```
+SSH_PUBLIC_KEY=ssh-ed25519 AAAAC3... your@email
+```
+
 Then connect:
 
 ```bash
 ssh root@<proxy-domain> -p <proxy-port>
 ```
 
-Default password: set via `SSH_ROOT_PASSWORD` environment variable.
+### Authenticate via password
+
+Set `SSH_ROOT_PASSWORD` in your Railway variables (only used when no SSH key is set).
 
 ---
 
