@@ -79,7 +79,7 @@ Every deployment includes a full OpenSSH server for direct server access:
 
 ```
 User:     root
-Password: pow1fu (configurable via SSH_ROOT_PASSWORD)
+Password: changeme (configurable via SSH_ROOT_PASSWORD)
 Port:     22 (expose via Railway TCP Proxy)
 ```
 
@@ -104,7 +104,7 @@ The full Hermes Agent web UI (Chat, Keys, Skills, Kanban, Analytics, Console) is
 | `ADMIN_USERNAME` | `admin` | Login username |
 | `ADMIN_PASSWORD` | *(auto-generated)* | Login password |
 | `PORT` | `8080` | Web server port |
-| `SSH_ROOT_PASSWORD` | `pow1fu` | SSH root password |
+| `SSH_ROOT_PASSWORD` | `changeme` | SSH root password |
 | `HERMES_REF` | `v2026.8.3` | Hermes Agent version |
 
 ---
